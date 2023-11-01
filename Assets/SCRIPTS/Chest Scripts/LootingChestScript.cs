@@ -19,12 +19,15 @@ public class LootingChestScript : MonoBehaviour
 
     [SerializeField] LootImagesScript lootImagesScript;
     [SerializeField] PlayerInventoryScript playerInventoryScript;
+
+    [SerializeField] GameObject lootGoldChestText;
  
     void Start()
     {
         currentSprite = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerInventoryScript = player.GetComponent<PlayerInventoryScript>();
+        lootGoldChestText.SetActive(false);
     }
     void Update()
     {
@@ -37,13 +40,15 @@ public class LootingChestScript : MonoBehaviour
         if (player != null)
         {
             float distance = Vector2.Distance(player.position, transform.position);
-            if(distance < distanceCanLootFrom)
+            if(distance < distanceCanLootFrom && !chestLooted)
             {
+                lootGoldChestText.SetActive(true);
                 canLoot = true;
             }   // You can now use the 'distance' variable in your game logic.
             else
             {
-                canLoot = false;
+                lootGoldChestText.SetActive(false);
+                
             }
         }
     }
@@ -63,6 +68,7 @@ public class LootingChestScript : MonoBehaviour
         }
         else if (chestLooted)
         {
+            lootGoldChestText.SetActive(false);
             currentSprite.sprite = LootedChest;
         }
     }

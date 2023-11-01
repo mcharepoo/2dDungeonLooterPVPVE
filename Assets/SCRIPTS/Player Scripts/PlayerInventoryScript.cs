@@ -47,8 +47,8 @@ public class PlayerInventoryScript : MonoBehaviour
             bool isTaken = inventorySlot.GetComponent<IsInventorySlotTakenScript>().isInventorySlotTaken;
             if(!isTaken)
             {
-                inventorySlot.GetComponent<Image>().sprite = itemSprite;
-                inventorySlot.GetComponent<IsInventorySlotTakenScript>().isInventorySlotTaken = true;
+                inventorySlot.GetComponent<IsInventorySlotTakenScript>().transferItemToSlot(itemSprite);
+                
                 inventorySlot.GetComponent<IsInventorySlotTakenScript>().changeAlphaColor();
                 break;
             }
