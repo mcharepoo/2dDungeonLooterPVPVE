@@ -9,9 +9,9 @@ public class PlayerInventoryScript : MonoBehaviour
     [SerializeField] GameObject inventoryUI;
     [SerializeField] bool inventoryActive = false;
 
-    [SerializeField] List<GameObject> inventorySlotsGameObjects;
+    public List<GameObject> inventorySlotsGameObjects;
 
-    
+    public int numberOfItemsInInventory;
 
     void Start()
     {
@@ -21,7 +21,10 @@ public class PlayerInventoryScript : MonoBehaviour
     void Update()
     {
         ToggleInventory();
+        
     }
+
+    
 
     void ToggleInventory()
     {
@@ -50,8 +53,15 @@ public class PlayerInventoryScript : MonoBehaviour
                 inventorySlot.GetComponent<IsInventorySlotTakenScript>().transferItemToSlot(itemSprite);
                 
                 inventorySlot.GetComponent<IsInventorySlotTakenScript>().changeAlphaColor();
+                numberOfItemsInInventory++;
+                
                 break;
             }
         }
     }
+
+    
+    
+
+    
 }

@@ -31,5 +31,6 @@ public class IsInventorySlotTakenScript : MonoBehaviour
             
         currentColor.a = 250;
         image.color = currentColor;
+        
     }
 }
