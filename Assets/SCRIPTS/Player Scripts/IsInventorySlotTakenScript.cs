@@ -33,4 +33,13 @@ public class IsInventorySlotTakenScript : MonoBehaviour
         image.color = currentColor;
         
     }
+
+    public void changeToWhiteColor()
+    {
+        Color currentColor = image.color;
+
+        currentColor = Color.white;
+        image.color = currentColor;
+
+    }
 }

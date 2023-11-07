@@ -36,8 +36,11 @@ public class GiveMainMenuInventoryValue : MonoBehaviour
     private void Start()
     {
         playerGameobject = GameObject.FindGameObjectWithTag("Player");
-        lootFromDungeon = playerGameobject.GetComponent<PlayerInventoryScript>().inventorySlotsGameObjects;
-        playerInventoryScript = playerGameobject.GetComponent<PlayerInventoryScript>();
+        if (playerGameobject != null)
+        {
+            lootFromDungeon = playerGameobject.GetComponent<PlayerInventoryScript>().inventorySlotsGameObjects;
+            playerInventoryScript = playerGameobject.GetComponent<PlayerInventoryScript>();
+        }
         transferDungeonLootToMainMenuStashInvTest();
         stashCount = stashGameObjects.Count;
         lootCount = lootFromDungeon.Count;
@@ -49,7 +52,7 @@ public class GiveMainMenuInventoryValue : MonoBehaviour
     private void transferDungeonLootToMainMenuStashInv()
     {
         int objNumber = 0;
-        if (objNumber <= lootFromDungeon.Count)
+        if (lootFromDungeon != null && objNumber <= lootFromDungeon.Count)
         {
            foreach (GameObject gameObject in lootFromDungeon)
             {
@@ -63,23 +66,31 @@ public class GiveMainMenuInventoryValue : MonoBehaviour
         }
         else
         {
-            Debug.Log("index too high");
+            Debug.Log("index too high or lootfromdungeon is null");
         }
     }
 
     private void transferDungeonLootToMainMenuStashInvTest()
     {
         int objNumber = 0;
-        
-        foreach (GameObject gameObject in lootFromDungeon)
+        if (lootFromDungeon != null)
         {
-
-            if (objNumber <= (playerInventoryScript.numberOfItemsInInventory - 1))
+            Debug.Log("transferDungeonLootToMainMenuStashInvTest executed");
+            foreach (GameObject gameObject in lootFromDungeon)
             {
-                stashGameObjects[objNumber].GetComponent<IsInventorySlotTakenScript>().transferItemToSlot(gameObject.GetComponent<Image>().sprite);
-                stashGameObjects[objNumber].GetComponent<IsInventorySlotTakenScript>().changeAlphaColor();
-                objNumber++;
+
+                if (objNumber <= (playerInventoryScript.numberOfItemsInInventory - 1))
+                {
+                    stashGameObjects[objNumber].GetComponent<IsInventorySlotTakenScript>().transferItemToSlot(gameObject.GetComponent<Image>().sprite);
+                    stashGameObjects[objNumber].GetComponent<IsInventorySlotTakenScript>().changeToWhiteColor();
+
+                    objNumber++;
+                }
             }
+        }
+        else
+        {
+            Debug.Log("lootfrom dungeon is null");
         }
         
         

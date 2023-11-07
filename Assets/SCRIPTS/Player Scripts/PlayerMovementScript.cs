@@ -19,6 +19,9 @@ public class PlayerMovementScript : MonoBehaviour
 
     [SerializeField] Animator animator;
 
+    public Vector3 mousePosition;
+    public Vector3 playerPosition;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -58,6 +61,8 @@ public class PlayerMovementScript : MonoBehaviour
             // }
             // swordSpriteRenderer.flipY = true;
         }
+        
+        
     }
 
     void CheckIfMoving()
@@ -91,6 +96,22 @@ public class PlayerMovementScript : MonoBehaviour
 
         // Set the object's rotation to the new rotation
         transform.rotation = newRotation;
+    }
+
+
+    void FlipSpriteToGoWhereMouseIs()
+    {
+        // Get the mouse position in screen coordinates
+        Vector3 screenMousePosition = Input.mousePosition;
+
+        // Convert the screen position to world position
+        mousePosition = Camera.main.ScreenToWorldPoint(screenMousePosition);
+        playerPosition = transform.position;
+
+        // Now you can access the mouse position in the world coordinates using the 'mousePosition' variable
+        // Example: Debug.Log("Mouse Position in World Coordinates: " + mousePosition);
+
+        // You can use the 'mousePosition' variable to interact with objects in your 2D world.
     }
 }
 

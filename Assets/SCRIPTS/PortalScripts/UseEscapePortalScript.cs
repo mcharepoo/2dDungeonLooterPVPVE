@@ -74,6 +74,7 @@ public class UseEscapePortalScript : MonoBehaviour
         usedEscapePortalScript.disableAllPlayerSprites();
         youHaveEscapedText.SetActive(true);
         yield return new WaitForSeconds(4);
+        youHaveEscapedText.SetActive(false) ;
         
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(0);
 
