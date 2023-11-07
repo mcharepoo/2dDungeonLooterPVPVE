@@ -12,8 +12,7 @@ public class PlayerMovementScript : MonoBehaviour
     public float moveSpeed = 5.0f;  // Speed at which the player moves
     private Rigidbody2D rb;
 
-    [SerializeField] List<SpriteRenderer> spriteRenderers;
-    [SerializeField] SpriteRenderer swordSpriteRenderer;
+    
 
     [SerializeField] bool isWalking = false;
 
@@ -41,26 +40,7 @@ public class PlayerMovementScript : MonoBehaviour
         rb.velocity = movement;
 
         // Flip the player sprite if moving left
-        if (horizontalInput < 0)
-        {
-            // foreach (SpriteRenderer sprite in spriteRenderers)
-            // {
-            //     sprite.flipX = false;
-            LeftYRotationControl();
-            // }
-            // swordSpriteRenderer.flipY = false;
-           
-        }
-        // Flip the player sprite if moving right
-        else if (horizontalInput > 0)
-        {
-            // foreach (SpriteRenderer sprite in spriteRenderers)
-            // {
-            //     sprite.flipX = true;
-            RightYRotationControl();
-            // }
-            // swordSpriteRenderer.flipY = true;
-        }
+        FlipSpriteToGoWhereMouseIs();
         
         
     }
@@ -108,10 +88,17 @@ public class PlayerMovementScript : MonoBehaviour
         mousePosition = Camera.main.ScreenToWorldPoint(screenMousePosition);
         playerPosition = transform.position;
 
-        // Now you can access the mouse position in the world coordinates using the 'mousePosition' variable
-        // Example: Debug.Log("Mouse Position in World Coordinates: " + mousePosition);
-
-        // You can use the 'mousePosition' variable to interact with objects in your 2D world.
+        if(mousePosition.x < playerPosition.x)
+        {
+            
+            LeftYRotationControl();
+        }
+        else if (mousePosition.x > playerPosition.x)
+        {
+           
+            RightYRotationControl();
+        }
+        
     }
 }
 
